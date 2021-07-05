@@ -7,6 +7,7 @@ class Request
     /**
      * @var string
      */
+
     private $host = 'http://guarant.local/api/v2';
 
     private $header;
