@@ -2,9 +2,9 @@
 
 namespace Guarantpay\models;
 /**
- * Class FeePayOptions
+ * Class PayOptions
  */
-class FeePayOptions
+class PayOptions
 {
     /**
      * @var
@@ -18,19 +18,27 @@ class FeePayOptions
     /**
      * @var
      */
-    private $description;
+    private $outputName;
 
     /**
-     * DealTypes constructor.
+     * @var
+     */
+    private $url;
+
+
+    /**
+     * PayOptions constructor.
      * @param $id
      * @param $name
-     * @param $description
+     * @param $outputName
+     * @param $url
      */
-    public function __construct($id, $name, $description)
+    public function __construct($id, $name, $outputName, $url)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->description = $description;
+        $this->outputName = $outputName;
+        $this->url = $url;
     }
 
     /**
@@ -68,17 +76,35 @@ class FeePayOptions
     /**
      * @return mixed
      */
-    public function getDescription()
+    public function getOutputName()
     {
-        return $this->description;
+        return $this->outputName;
     }
 
     /**
-     * @param mixed $description
+     * @param $outputName
      */
-    public function setDescription($description)
+    public function setOutputName($outputName)
     {
-        $this->description = $description;
+        $this->outputName = $outputName;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param mixed $url
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    }
+
+
 
 }
