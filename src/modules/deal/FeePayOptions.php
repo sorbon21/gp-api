@@ -5,33 +5,33 @@ namespace Guarantpay\modules\deal;
 use Guarantpay\models\DealTypes;
 use Guarantpay\modules\Auth;
 
-class Types
+class FeePayOptions
 {
     private $token;
 
-    private $dealTypes;
+    private $feePayOptions;
 
     private $path;
 
     public function __construct(Auth $auth)
     {
         $this->token = $auth->auth();
-        $this->path = 'deal/types';
+        $this->path = 'deal/fee-payer-options';
     }
 
-    public function getDealTypes()
+    public function getFeePayOptions()
     {
         $request = new \Guarantpay\core\Request();
         $request->setToken($this->token);
-        if (empty($this->dealTypes)) {
+        if (empty($this->feePayOptions)) {
             $response = $request->sendRequest($this->path);
-            if (!empty($response['data']["deal_types"])){
-                foreach ($response['data']["deal_types"] as $item){
-                    $this->dealTypes[]= new DealTypes($item['id'],$item['ident'],$item['name']);
+            if (!empty($response['data']["fee_payer_options"])) {
+                foreach ($response['data']["fee_payer_options"] as $item) {
+                    $this->feePayOptions[] = new \Guarantpay\models\FeePayOptions($item['id'], $item['name'], $item['description']);
                 }
             }
         }
-        return $this->dealTypes;
+        return $this->feePayOptions;
     }
 
 
