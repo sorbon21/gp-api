@@ -7,7 +7,7 @@ namespace Guarantpay\models\counteragent\request;
  * Class Create
  * @package Guarantpay\models\counteragent\request
  */
-class Create
+class CreateCounterAgent
 {
     /**
      * @var string
@@ -30,24 +30,6 @@ class Create
      * @var array
      */
     private $payment_data = [];
-
-    /**
-     * Create constructor.
-     * @param string $email
-     * @param string $phone
-     * @param string $type_agent
-     * @param array $agent_data
-     * @param array|null $payment_data
-     */
-    public function __construct(string $email = null, string $phone = null, string $type_agent = null, array $agent_data = null, array $payment_data = null)
-    {
-        $this->email = $email;
-        $this->phone = $phone;
-        $this->type_agent = $type_agent;
-        $this->agent_data = $agent_data;
-        $this->payment_data = $payment_data;
-    }
-
 
     /**
      * @return string
@@ -136,11 +118,15 @@ class Create
     public function getOutputArray()
     {
         $output = [];
-        $output[] = ['email' => $this->email];
-        $output[] = ['phone' => $this->phone];
-        $output[] = ['type_agent' => $this->type_agent];
-        $output[] = ['agent_data' => $this->agent_data];
-        $output[] = ['payment_data' => $this->payment_data];
+        $output['email'] = $this->email;
+        $output['phone'] = $this->phone;
+        $output['type_agent'] = $this->type_agent;
+        if ($this->agent_data) {
+            $output['agent_data'] = $this->agent_data;
+        }
+        if ($this->payment_data) {
+            $output ['payment_data'] = $this->payment_data;
+        }
         return $output;
     }
 
