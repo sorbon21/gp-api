@@ -61,7 +61,11 @@ class Auth
         if (empty($this->getToken())){
             $request = new Request();
             $response = $request->sendRequest($this->path, ['login' => $this->login, 'password' => $this->password]);
-            $this->setToken($response['data']['token']);
+            if (!empty($response['data']['token'])){
+                $this->setToken($response['data']['token']);
+            }else{
+                die(var_dump($response));
+            }
         }
         return $this->getToken();
     }
