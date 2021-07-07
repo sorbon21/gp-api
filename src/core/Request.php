@@ -28,12 +28,12 @@ class Request
     public function setToken($token)
     {
         $this->token = $token;
-        $this->header[]='token: '.$token;
+        $this->header[] = 'token: ' . $token;
     }
 
     public function __construct()
     {
-        $this->header[] = 'Content-Type: application/json';
+        $this->header[] = "Content-type: multipart/form-data";
     }
 
     public function headerPush($key, $value)
@@ -54,6 +54,19 @@ class Request
         return $this;
     }
 
+    private function build_post_fields( $data,$existingKeys='',&$returnArray=[]){
+        if(!(is_array($data) or is_object($data))){
+            $returnArray[$existingKeys]=$data;
+            return $returnArray;
+        }
+        else{
+            foreach ($data as $key => $item) {
+                $this->build_post_fields($item,$existingKeys?$existingKeys."[$key]":$key,$returnArray);
+            }
+            return $returnArray;
+        }
+    }
+
     /**
      * @param string $path
      * @param mixed $data
@@ -69,11 +82,12 @@ class Request
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        if (!empty($this->getToken())){
+        if (!empty($this->getToken())) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $this->header);
         }
         if (in_array($method, array('POST', 'PUT'))) {
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $this->build_post_fields($data));
         }
         $response = curl_exec($ch);
         if ($response === false) {
