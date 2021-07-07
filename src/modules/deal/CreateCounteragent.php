@@ -2,20 +2,25 @@
 
 namespace Guarantpay\modules\deal;
 
-use Guarantpay\models\counteragent\request\Create;
 use Guarantpay\modules\Auth;
 
-class CreateCounteragent
+class CreateCounterAgent
 {
     private $token;
 
     private $body;
 
-    private $counteragent;
+    private $counterAgent;
 
     private $path;
 
-    public function __construct(Auth $auth, Create $createModel)
+    /**
+     * CreateCounterAgent constructor.
+     * @param Auth $auth
+     * @param $createModel
+     * @throws \Exception
+     */
+    public function __construct(Auth $auth, $createModel)
     {
         $this->token = $auth->auth();
         $this->path = 'deal/create-counteragent';
@@ -26,15 +31,17 @@ class CreateCounteragent
     {
         $request = new \Guarantpay\core\Request();
         $request->setToken($this->token);
-        if (empty($this->feePayOptions)) {
+        if (empty($this->counterAgent) and !empty($this->body)) {
             $response = $request->sendRequest($this->path, $this->body);
-            if (!empty($response['data']['counteragent']))
-            {
-                $counteragentData = $response['data']['counteragent'];
-                $this->counteragent = new \Guarantpay\models\counteragent\response\Create($counteragentData['user_id'], $counteragentData['counteragent_id'], $counteragentData['payment_method_id']);
+            if (!empty($response['data']['counteragent'])) {
+                $counterAgentData = $response['data']['counteragent'];
+                $this->counterAgent = new \Guarantpay\models\counteragent\response\Create();
+                $this->counterAgent->setUserId($counterAgentData['user_id'] ?? null);
+                $this->counterAgent->setCounterAgent($counterAgentData['counteragent_id'] ?? null);
+                $this->counterAgent->setPaymentMethodId($counterAgentData['payment_method_id'] ?? null);
             }
         }
-        return $this->counteragent;
+        return $this->counterAgent;
     }
 
 
