@@ -3,66 +3,55 @@
 namespace Guarantpay\models\counteragent\response;
 class Create
 {
-    private $user_id;
-    private $counteragent_id;
-    private $payment_method_id;
-
-    public function __construct(int $user_id = null, int $counteragent_id = null, $payment_method_id = null)
-    {
-        $this->user_id = $user_id;
-        $this->counteragent_id = $counteragent_id;
-        $this->payment_method_id = $payment_method_id;
-    }
+    private $userId;
+    private $counterAgent;
+    private $paymentMethodId;
 
     /**
-     * @return int
+     * @return mixed
      */
     public function getUserId()
     {
-        return $this->user_id;
+        return $this->userId;
     }
 
     /**
-     * @param int $user_id
+     * @param mixed $userId
      */
-    public function setUserId($user_id)
+    public function setUserId($userId)
     {
-        $this->user_id = $user_id;
+        $this->userId = $userId;
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getCounteragentId()
+    public function getCounterAgent()
     {
-        return $this->counteragent_id;
+        return $this->counterAgent;
     }
 
     /**
-     * @param int $counteragent_id
+     * @param mixed $counterAgent
      */
-    public function setCounteragentId($counteragent_id)
+    public function setCounterAgent($counterAgent)
     {
-        $this->counteragent_id = $counteragent_id;
+        $this->counterAgent = $counterAgent;
     }
 
     /**
-     * @return null
+     * @return mixed
      */
     public function getPaymentMethodId()
     {
-        return $this->payment_method_id;
+        return $this->paymentMethodId;
     }
 
     /**
-     * @param null $payment_method_id
+     * @param mixed $paymentMethodId
      */
-    public function setPaymentMethodId($payment_method_id)
+    public function setPaymentMethodId($paymentMethodId)
     {
-        $this->payment_method_id = $payment_method_id;
+        $this->paymentMethodId = $paymentMethodId;
     }
-
-
-
-
 }
