@@ -20,19 +20,6 @@ class DealTypes
     private $ident;
 
     /**
-     * DealTypes constructor.
-     * @param $id
-     * @param $ident
-     * @param $name
-     */
-    public function __construct($id, $ident, $name)
-    {
-        $this->id = $id;
-        $this->ident = $ident;
-        $this->name = $name;
-    }
-
-    /**
      * @return mixed
      */
     public function getId()
