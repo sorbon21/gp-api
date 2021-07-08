@@ -1,0 +1,22 @@
+{
+    "name": "guarantpay-api-alpha/composer-package",
+    "description": "Альфа версия для интеграции",
+    "authors": [
+        {
+            "name": "guarantpay api alpha",
+            "email": "test@guarantpay.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.2.0"
+    },
+    "require-dev": {
+
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Guarantpay\\": "src/"
+        }
+    }
+}
