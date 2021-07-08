@@ -1,6 +1,7 @@
 {
     "name": "guarantpay-api-alpha/composer-package",
     "description": "Альфа версия для интеграции",
+    "license": "MIT",
     "authors": [
         {
             "name": "guarantpay api alpha",
